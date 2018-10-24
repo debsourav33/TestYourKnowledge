@@ -43,7 +43,7 @@ public class CategoryView implements ViewMaker{
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
         ButtonBar bbar = new ButtonBar();
-        bbar.setPadding(new Insets(10));
+        bbar.setPadding(new Insets(100));
         bbar.getButtons().addAll(BackButton,closeButton);
         root.setBottom(bbar);
 

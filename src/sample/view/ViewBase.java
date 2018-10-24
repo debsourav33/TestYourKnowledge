@@ -51,10 +51,13 @@ public class ViewBase implements ViewMaker {
 
         String Answer1[] = { "int _a3", "int a_3", "int 3_a", "int _3a" };
 
+        CheckBox[] checkBoxAnswer1 = new CheckBox[Answer1.length];
+
         for(int i=0; i<Answer1.length; i++){
-            CheckBox checkBoxAnswer1 = new CheckBox((Answer1[i])+"");
-            checkBoxAnswer1.setMnemonicParsing(false);
-            root.add(checkBoxAnswer1, 2, 5+i);
+
+            checkBoxAnswer1[i] = new CheckBox((Answer1[i])+"");
+            checkBoxAnswer1[i].setMnemonicParsing(false);
+            root.add(checkBoxAnswer1[i], 2, 5+i);
         }
 
 
