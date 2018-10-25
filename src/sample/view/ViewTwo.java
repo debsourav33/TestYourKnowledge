@@ -7,7 +7,7 @@ public class ViewTwo extends ViewBase {
 
     public ViewTwo(Stage stage) {
 
-        super(stage, "Data Structure questions", e -> new ViewTwoController(stage).handleMousePress(e));
+        super(stage, "Data Structure questions", "Language",e -> new ViewTwoController(stage).handleMousePress(e));
 
     }
 
