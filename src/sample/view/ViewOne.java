@@ -8,7 +8,7 @@ public class ViewOne extends ViewBase {
     /** Must inject a stage */
     public ViewOne(Stage stage) {
 
-        super(stage, "Programming languages questions","Language", e -> new ViewOneController(stage).handleMousePress(e));
+        super(stage, "Programming languages questions","Files/Language", e -> new ViewOneController(stage).handleMousePress(e));
 
 
 
