@@ -5,11 +5,9 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.model.SceneName;
 
-public class ViewThreeController {
+public class LanguageTwoController {
     private Stage stage;
-
-    /** Must inject a stage */
-    public ViewThreeController(Stage stage) {
+    public LanguageTwoController(Stage stage) {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
@@ -19,6 +17,10 @@ public class ViewThreeController {
 
     /** Display main scene when the "back" button is clicked */
     public void handleMousePress(Event event) {
+        stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
+    }
+
+    public void handleNextButtonPress(Event event){
         stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
     }
 }

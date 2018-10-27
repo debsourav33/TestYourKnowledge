@@ -15,17 +15,16 @@ public class CategoryController {
     public void handleOnFirstBack(MouseEvent event){ stage.setScene(Main.getScenes().get(SceneName.MAIN));}
 
     /** Display the first scene */
-    public void handleOnPressButton1(MouseEvent event) {
-        stage.setScene(Main.getScenes().get(SceneName.SCENE1));
+    public void handleOnPressButton1(MouseEvent event) { stage.setScene(Main.getScenes().get(SceneName.LANGUAGE1));
     }
 
     /** Display the second scene */
     public void handleOnPressButton2(MouseEvent event) {
-        stage.setScene(Main.getScenes().get(SceneName.SCENE2));
+        stage.setScene(Main.getScenes().get(SceneName.DS1));
     }
 
     /** Display the third scene */
     public void handleOnPressButton3(MouseEvent event) {
-        stage.setScene(Main.getScenes().get(SceneName.SCENE3));
+        stage.setScene(Main.getScenes().get(SceneName.ALGO1));
     }
 }

@@ -5,11 +5,11 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.model.SceneName;
 
-public class ViewOneController {
+public class AlgorithmTwoController {
     private Stage stage;
 
     /** Must inject a stage */
-    public ViewOneController(Stage stage) {
+    public AlgorithmTwoController(Stage stage) {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
@@ -19,6 +19,10 @@ public class ViewOneController {
 
     /** Display main scene when the "back" button is clicked */
     public void handleMousePress(Event event) {
+        stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
+    }
+
+    public void handleNextButtonPress(Event event){
         stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
     }
 }

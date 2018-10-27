@@ -23,21 +23,27 @@ public class ViewBase implements ViewMaker {
     private Stage stage;
     private String labelText;
     private String filename;
-    private EventHandler<? super MouseEvent> handler;
+    private EventHandler<? super MouseEvent> handlerBack;
+    private EventHandler<? super MouseEvent> handlerNext;
 
-    public ViewBase(Stage stage, String labelText, String filename, EventHandler<? super MouseEvent> handler) {
+    public ViewBase(Stage stage, String labelText, String filename,
+                    EventHandler<? super MouseEvent> handlerBack, EventHandler<? super MouseEvent> handlerNext) {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
 
-        if (handler == null) {
+        if (handlerBack == null) {
+            throw new IllegalArgumentException("Handler cannot be null");
+        }
+        if (handlerNext == null){
             throw new IllegalArgumentException("Handler cannot be null");
         }
 
         this.stage = stage;
         this.labelText = labelText;
         this.filename = filename;
-        this.handler = handler;
+        this.handlerBack = handlerBack;
+        this.handlerNext = handlerNext;
     }
 
 
@@ -91,13 +97,29 @@ public class ViewBase implements ViewMaker {
         }
 
         Button backButton = new Button("Back");
-        backButton.setOnMousePressed(handler);
+        backButton.setOnMousePressed(handlerBack);
+
+        int next = 0;
+        Button nextButton = new Button("Next");
+        for(int i=0; i<20; i++){
+            if (Options[i].isSelected()) {
+                for(int j=(i/4)*4; j<=i; j++){
+                    if(Options[j].isSelected() && j!=i){
+                        next=1;
+                    }
+                }
+            }
+        }
+        if(next!=1) {
+            nextButton.setOnMousePressed(handlerNext);
+        }
+
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
+
         ButtonBar bbar = new ButtonBar();
-        //bbar.setPadding(new Insets(10));
-        bbar.getButtons().addAll(backButton,closeButton);
-        root.add(bbar,64,34);
+        bbar.getButtons().addAll(backButton, nextButton);
+        root.add(bbar,34,34);
 
         return new Scene(root,1200,900);
     }
