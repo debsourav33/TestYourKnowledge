@@ -7,16 +7,17 @@ import javafx.stage.Stage;
 import sample.model.SceneName;
 import sample.view.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
+import database.Show_question_with_options;
 public class Main extends Application {
 
     private static Map<SceneName, Scene> scenes = new HashMap<>();
     private GridPane grid = new GridPane();
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws SQLException {
 
         // Create and store all scenes up front
         scenes.put(SceneName.MAIN, new MainView(stage).getScene());
@@ -41,5 +42,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }
