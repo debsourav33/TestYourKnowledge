@@ -13,10 +13,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import database.Show_question_with_options;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ViewBase implements ViewMaker {
@@ -48,7 +49,7 @@ public class ViewBase implements ViewMaker {
 
 
     @Override
-    public Scene getScene() {
+    public Scene getScene() throws SQLException {
         GridPane root = new GridPane();
         root.setPadding(new Insets(10));
         Label label = new Label(labelText);
@@ -67,6 +68,12 @@ public class ViewBase implements ViewMaker {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        //Fatching information from database
+
+        Show_question_with_options show = new Show_question_with_options("data_structure");
+        //System.out.println(show.question[1]);
+
+
 
         BufferedReader br = new BufferedReader(fr);
         Scanner sc = new Scanner(br);
@@ -77,9 +84,13 @@ public class ViewBase implements ViewMaker {
 
         Text[] Question = new Text[5];
         CheckBox[] Options = new CheckBox[20];
+        CheckBox[] answer = new CheckBox[5];
+        CheckBox[] Options1 = new CheckBox[5];
+        CheckBox[] Options2 = new CheckBox[5];
+        CheckBox[] Options3 = new CheckBox[5];
 
         for(int i=0; i<5; i++){
-            Question[i] = new Text(fileData[4*i+i]);
+            Question[i] = new Text(show.question[i]);
 
         }
         for(int i=0, j=1; i<20; i++,j++){
@@ -87,29 +98,55 @@ public class ViewBase implements ViewMaker {
             Options[i] = new CheckBox(fileData[j]);
             Options[i].setMnemonicParsing(false);
         }
+        for(int i = 0; i<5; i++)
+        {
+            answer[i] = new CheckBox(show.answer[i]);//new added options where database data has been added
+            answer[i].setMnemonicParsing(false);
+            //System.out.println(show.answer[i]); //new added options where database data has been added
+            Options1[i] = new CheckBox(show.option1[i]);//new added options where database data has been added
+            Options1[i].setMnemonicParsing(false);
+            //System.out.println(show.option1[i]);//new added options where database data has been added
+            Options2[i] = new CheckBox(show.option2[i]);//new added options where database data has been added
+            Options2[i].setMnemonicParsing(false);
+            //System.out.println(show.option2[i]);//new added options where database data has been added
+            Options3[i] = new CheckBox(show.option3[i]);//new added options where database data has been added
+            Options3[i].setMnemonicParsing(false);
+            //System.out.println(show.option3[i]);//new added options where database data has been added
+        }
 
-        for(int i=0,j=0; i<5 && j<20; i++,j+=4){
+        /*for(int i=0,j=0; i<5 && j<20; i++,j+=4){
             root.add(Question[i],2,4*(i+1)+2*i );
             root.add(Options[j],2,4*(i+1)+1+2*i );
             root.add(Options[j+1],2,4*(i+1)+2+2*i );
             root.add(Options[j+2],2,4*(i+1)+3+2*i );
             root.add(Options[j+3],2,4*(i+1)+4+2*i );
+        }*/
+
+
+        for(int i=0; i<5; i++){
+            root.add(Question[i],2,4*(i+1)+2*i ); //new added options where database data has been added
+
+
+            root.add(answer[i],2,4*(i+1)+1+2*i );  //new added options where database data has been shown
+            root.add(Options1[i],2,4*(i+1)+2+2*i ); //new added options where database data has been shown
+            root.add(Options2[i],2,4*(i+1)+3+2*i ); //new added options where database data has been shown
+            root.add(Options3[i],2,4*(i+1)+4+2*i ); //new added options where database data has been Shown
         }
 
         Button backButton = new Button("Back");
         backButton.setOnMousePressed(handlerBack);
 
-        int next = 0;
+        int next = 0;// edit from this line so that the options can show the the text
         Button nextButton = new Button("Next");
         for(int i=0; i<20; i++){
             if (Options[i].isSelected()) {
                 for(int j=(i/4)*4; j<=i; j++){
-                    if(Options[j].isSelected() && j!=i){
+                    if(Options[j].isSelected() && j!=i){//edit needed
                         next=1;
                     }
                 }
             }
-        }
+        }//till this line
         if(next!=1) {
             nextButton.setOnMousePressed(handlerNext);
         }
