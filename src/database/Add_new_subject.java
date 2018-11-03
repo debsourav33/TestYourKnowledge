@@ -16,7 +16,7 @@ public class Add_new_subject extends Database_connector {
         //conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
         PreparedStatement createTable = conn.prepareStatement("CREATE TABLE IF NOT EXISTS "+subject_name+"(id int NOT NULL AUTO_INCREMENT, Question varchar(5000), Answer varchar(5000), Option1 varchar(5000),Option2 varchar(5000),Option3 varchar(5000), PRIMARY KEY(id))") ;
         createTable.executeUpdate();
-
+        System.out.println("Created "+subject_name+" table");
     }
 
 }

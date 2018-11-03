@@ -3,21 +3,24 @@ import java.sql.*;
 import java.util.*;
 public class Database_connector {
     public static final String USERNAME ="root";
-    public   static final String PASSWORD ="root";
-    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge";
-    Connection conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
-    public  Database_connector() throws SQLException {
-        /*Scanner scan = new Scanner(System.in);
+    public   static final String PASSWORD ="Mediocre52*7";
+    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge?autoReconnect=true&useSSL=false";
+    static Connection conn = null;
+    public static void main(String[] args) throws SQLException {
+        //Scanner scan = new Scanner(System.in);
         //String test = scan.nextLine();
         //String concate = "my "+test+"";
-       // System.out.println(concate);
-        Connection conn = null;
+       // System.out.println(concate);*/
+        //Connection conn = null;
+        //Connection conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
         try{
 
+            conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
             Statement statement = conn.createStatement();
+            if(statement.isPoolable())
             System.out.println("connection established");
 
-
+/*
             //String study_subject1 = scan.nextLine();
             String study_subject = "physics";//scan.nextLine();
 
@@ -38,10 +41,10 @@ public class Database_connector {
                 System.out.println(rs.getString(1));
                 System.out.println(array_question[i-1]);
             }
-            System.out.println(study_subject);
+            System.out.println(study_subject);*/
         } catch (SQLException e){
             System.err.println(e);
-        }*/
+        }
 
     }
 }
