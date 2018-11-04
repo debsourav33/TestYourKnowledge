@@ -4,11 +4,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -60,7 +58,10 @@ public class ViewBase implements ViewMaker {
 
         root.add(label,2,0,48,1);
 
-        String[] fileData = new String[1000];
+        ScrollPane scrollPane = new ScrollPane();
+        //scrollPane.setContent(root);
+
+        String[] fileData = new String[60];
         int lines=0;
         FileReader fr= null;
         try {
@@ -68,12 +69,9 @@ public class ViewBase implements ViewMaker {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //Fatching information from database
+        //Fetching information from database
 
-        Show_question_with_options show = new Show_question_with_options("data_structure");
-        //System.out.println(show.question[1]);
-
-
+        Show_question_with_options show = new Show_question_with_options(filename);
 
         BufferedReader br = new BufferedReader(fr);
         Scanner sc = new Scanner(br);
@@ -82,27 +80,26 @@ public class ViewBase implements ViewMaker {
             lines++;
         }
 
-        Text[] Question = new Text[5];
-        CheckBox[] Options = new CheckBox[20];
-        CheckBox[] answer = new CheckBox[5];
-        CheckBox[] Options1 = new CheckBox[5];
-        CheckBox[] Options2 = new CheckBox[5];
-        CheckBox[] Options3 = new CheckBox[5];
+        Text[] Question = new Text[50];
+        CheckBox[] answer = new CheckBox[50];
+        CheckBox[] Options1 = new CheckBox[50];
+        CheckBox[] Options2 = new CheckBox[50];
+        CheckBox[] Options3 = new CheckBox[50];
 
-        for(int i=0; i<5; i++){
+        for(int i=0; i<10; i++){
             Question[i] = new Text(show.question[i]);
 
         }
-        for(int i=0, j=1; i<20; i++,j++){
+        /*for(int i=0, j=1; i<20; i++,j++){
             if(j%5==0) j++;
             Options[i] = new CheckBox(fileData[j]);
             Options[i].setMnemonicParsing(false);
-        }
-        for(int i = 0; i<5; i++)
+        }*/
+        for(int i = 0; i<10; i++)
         {
-            answer[i] = new CheckBox(show.answer[i]);//new added options where database data has been added
+            answer[i] = new CheckBox(show.answer[i]);
             answer[i].setMnemonicParsing(false);
-            //System.out.println(show.answer[i]); //new added options where database data has been added
+
             Options1[i] = new CheckBox(show.option1[i]);//new added options where database data has been added
             Options1[i].setMnemonicParsing(false);
             //System.out.println(show.option1[i]);//new added options where database data has been added
@@ -114,19 +111,9 @@ public class ViewBase implements ViewMaker {
             //System.out.println(show.option3[i]);//new added options where database data has been added
         }
 
-        /*for(int i=0,j=0; i<5 && j<20; i++,j+=4){
-            root.add(Question[i],2,4*(i+1)+2*i );
-            root.add(Options[j],2,4*(i+1)+1+2*i );
-            root.add(Options[j+1],2,4*(i+1)+2+2*i );
-            root.add(Options[j+2],2,4*(i+1)+3+2*i );
-            root.add(Options[j+3],2,4*(i+1)+4+2*i );
-        }*/
 
-
-        for(int i=0; i<5; i++){
+        for(int i=0; i<10; i++){
             root.add(Question[i],2,4*(i+1)+2*i ); //new added options where database data has been added
-
-
             root.add(answer[i],2,4*(i+1)+1+2*i );  //new added options where database data has been shown
             root.add(Options1[i],2,4*(i+1)+2+2*i ); //new added options where database data has been shown
             root.add(Options2[i],2,4*(i+1)+3+2*i ); //new added options where database data has been shown
@@ -138,26 +125,22 @@ public class ViewBase implements ViewMaker {
 
         int next = 0;// edit from this line so that the options can show the the text
         Button nextButton = new Button("Next");
-        for(int i=0; i<20; i++){
-            if (Options[i].isSelected()) {
-                for(int j=(i/4)*4; j<=i; j++){
-                    if(Options[j].isSelected() && j!=i){//edit needed
-                        next=1;
-                    }
-                }
-            }
-        }//till this line
-        if(next!=1) {
+
+
             nextButton.setOnMousePressed(handlerNext);
-        }
+
 
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
 
         ButtonBar bbar = new ButtonBar();
         bbar.getButtons().addAll(backButton, nextButton);
-        root.add(bbar,34,34);
+        root.add(bbar,64,34);
 
-        return new Scene(root,1200,900);
+        final FlowPane container = new FlowPane();
+
+        scrollPane.setContent(root);
+
+        return new Scene(scrollPane,1200,900);
     }
 }

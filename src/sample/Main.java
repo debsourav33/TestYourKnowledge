@@ -1,5 +1,7 @@
 package sample;
 
+import database.Add_new_subject;
+import database.Insert_question;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -40,7 +42,19 @@ public class Main extends Application {
         return scenes;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException{
+        Add_new_subject new_subject1 = new Add_new_subject("Data_Structure");
+
+        Insert_question insert_question1 = new Insert_question("Data_Structure","Data_Structure");
+
+        Add_new_subject new_subject2 = new Add_new_subject("Algorithm");
+
+        Insert_question insert_question2 = new Insert_question("Algorithm","Algorithm");
+
+        Add_new_subject new_subject3 = new Add_new_subject("Language");
+
+        Insert_question insert_question3 = new Insert_question("Language","Language");
+
         launch(args);
 
     }
