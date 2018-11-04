@@ -3,8 +3,9 @@ import java.sql.*;
 import java.util.*;
 public class Database_connector {
     public static final String USERNAME ="root";
-    public   static final String PASSWORD ="root";
-    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge";
+    public   static final String PASSWORD ="Mediocre52*7";
+    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge" +
+            "?autoReconnect=true&useSSL=false";
     Connection conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
     public  Database_connector() throws SQLException {
         /*Scanner scan = new Scanner(System.in);
