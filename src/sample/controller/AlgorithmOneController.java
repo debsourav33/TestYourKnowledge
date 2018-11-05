@@ -23,6 +23,6 @@ public class AlgorithmOneController {
     }
 
     public void handleNextButtonPress(Event event){
-        stage.setScene(Main.getScenes().get(SceneName.ALGO2));
+        stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
     }
 }

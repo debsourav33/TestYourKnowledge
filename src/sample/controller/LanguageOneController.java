@@ -23,6 +23,6 @@ public class LanguageOneController {
     }
 
     public void handleNextButtonPress(Event event){
-        stage.setScene(Main.getScenes().get(SceneName.LANGUAGE2));
+        stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
     }
 }

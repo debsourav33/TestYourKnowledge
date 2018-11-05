@@ -23,6 +23,6 @@ public class DSOneController {
     }
 
     public void handleNextButtonPress(Event event){
-        stage.setScene(Main.getScenes().get(SceneName.DS2));
+        stage.setScene(Main.getScenes().get(SceneName.CATEGORIES));
     }
 }

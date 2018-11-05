@@ -1,5 +1,6 @@
 package sample.view;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +25,7 @@ public class ViewBase implements ViewMaker {
     private String filename;
     private EventHandler<? super MouseEvent> handlerBack;
     private EventHandler<? super MouseEvent> handlerNext;
+    private int score=0;
 
     public ViewBase(Stage stage, String labelText, String filename,
                     EventHandler<? super MouseEvent> handlerBack, EventHandler<? super MouseEvent> handlerNext) {
@@ -62,8 +64,9 @@ public class ViewBase implements ViewMaker {
         //scrollPane.setContent(root);
 
         String[] fileData = new String[60];
-        int lines=0;
+        int lines=1;
         FileReader fr= null;
+
         try {
             fr = new FileReader(""+filename);
         } catch (FileNotFoundException e) {
@@ -88,56 +91,65 @@ public class ViewBase implements ViewMaker {
 
         for(int i=0; i<10; i++){
             Question[i] = new Text(show.question[i]);
-
         }
-        /*for(int i=0, j=1; i<20; i++,j++){
-            if(j%5==0) j++;
-            Options[i] = new CheckBox(fileData[j]);
-            Options[i].setMnemonicParsing(false);
-        }*/
         for(int i = 0; i<10; i++)
         {
             answer[i] = new CheckBox(show.answer[i]);
             answer[i].setMnemonicParsing(false);
 
-            Options1[i] = new CheckBox(show.option1[i]);//new added options where database data has been added
+            Options1[i] = new CheckBox(show.option1[i]);
             Options1[i].setMnemonicParsing(false);
-            //System.out.println(show.option1[i]);//new added options where database data has been added
-            Options2[i] = new CheckBox(show.option2[i]);//new added options where database data has been added
+
+            Options2[i] = new CheckBox(show.option2[i]);
             Options2[i].setMnemonicParsing(false);
-            //System.out.println(show.option2[i]);//new added options where database data has been added
-            Options3[i] = new CheckBox(show.option3[i]);//new added options where database data has been added
+
+            Options3[i] = new CheckBox(show.option3[i]);
             Options3[i].setMnemonicParsing(false);
-            //System.out.println(show.option3[i]);//new added options where database data has been added
+
         }
 
 
-        for(int i=0; i<10; i++){
-            root.add(Question[i],2,4*(i+1)+2*i ); //new added options where database data has been added
-            root.add(answer[i],2,4*(i+1)+1+2*i );  //new added options where database data has been shown
-            root.add(Options1[i],2,4*(i+1)+2+2*i ); //new added options where database data has been shown
-            root.add(Options2[i],2,4*(i+1)+3+2*i ); //new added options where database data has been shown
-            root.add(Options3[i],2,4*(i+1)+4+2*i ); //new added options where database data has been Shown
+        for(int i=0; i<10; i++) {
+            root.add(Question[i], 2, 4 * (i + 1) + 2 * i);
+            root.add(answer[i], 2, 4 * (i + 1) + 1 + 2 * i);
+            root.add(Options1[i], 2, 4 * (i + 1) + 2 + 2 * i);
+            root.add(Options2[i], 2, 4 * (i + 1) + 3 + 2 * i);
+            root.add(Options3[i], 2, 4 * (i + 1) + 4 + 2 * i);
         }
 
         Button backButton = new Button("Back");
         backButton.setOnMousePressed(handlerBack);
 
-        int next = 0;// edit from this line so that the options can show the the text
         Button nextButton = new Button("Next");
-
-
-            nextButton.setOnMousePressed(handlerNext);
-
+        //nextButton.setOnMousePressed(handlerNext);
+        nextButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                int selected = 0, score=0;
+                for(int i=0; i<10; i++){
+                    if(answer[i].isSelected())  {
+                        selected++;
+                        score++;
+                    }
+                    if(Options1[i].isSelected()) selected++;
+                    if(Options2[i].isSelected()) selected++;
+                    if(Options3[i].isSelected())    selected++;
+                }
+                System.out.println("Selected optins: "+selected+" Score = "+score);
+                if(selected>10) {
+                    Text warning = new Text("You can't select more than one answer for a single question");
+                    root.add(warning,64,62);
+                }
+                    else nextButton.setOnMousePressed(handlerNext);
+            }
+        });
 
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
 
         ButtonBar bbar = new ButtonBar();
-        bbar.getButtons().addAll(backButton, nextButton);
-        root.add(bbar,64,34);
-
-        final FlowPane container = new FlowPane();
+        bbar.getButtons().addAll(backButton, nextButton, closeButton);
+        root.add(bbar,64,64);
 
         scrollPane.setContent(root);
 

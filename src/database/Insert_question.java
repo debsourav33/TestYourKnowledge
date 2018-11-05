@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Insert_question extends Database_connector {
 
-    private  static String subject = null;
+    private String subject = null;
     private String question = null;
     private String answer = null;
     private String option1 = null;
@@ -23,7 +23,7 @@ public class Insert_question extends Database_connector {
 
         String delete = "DELETE FROM "+ subject;
         PreparedStatement delete_QmS = conn.prepareStatement(delete);
-        delete_QmS.executeUpdate();
+        delete_QmS.execute();
 
         String[] fileData = new String[60];
         int lines=1, lineNo=1;
