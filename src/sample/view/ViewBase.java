@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ViewBase implements ViewMaker {
@@ -110,11 +111,38 @@ public class ViewBase implements ViewMaker {
 
 
         for(int i=0; i<10; i++) {
+
+            Random rand = new Random();
+            int random = rand.nextInt(4);
+
+            System.out.println("Random number: "+random);
+
+            int p = 4 * (i + 1) + 1 + 2 * i;
+            int q = 4 * (i + 1) + 2 + 2 * i;
+            int r = 4 * (i + 1) + 3 + 2 * i;
+            int s = 4 * (i + 1) + 4 + 2 * i;
+
+            if(random == 1) {
+                int temp = p;
+                p = q;
+                q = temp;
+            }
+            else if(random == 2){
+                int temp = p;
+                p = r;
+                r = temp;
+            }
+            else if(random == 3){
+                int temp = p;
+                p = s;
+                s = temp;
+            }
+
             root.add(Question[i], 2, 4 * (i + 1) + 2 * i);
-            root.add(answer[i], 2, 4 * (i + 1) + 1 + 2 * i);
-            root.add(Options1[i], 2, 4 * (i + 1) + 2 + 2 * i);
-            root.add(Options2[i], 2, 4 * (i + 1) + 3 + 2 * i);
-            root.add(Options3[i], 2, 4 * (i + 1) + 4 + 2 * i);
+            root.add(answer[i], 2, p);
+            root.add(Options1[i], 2, q);
+            root.add(Options2[i], 2, r);
+            root.add(Options3[i], 2, s);
         }
 
         Button backButton = new Button("Back");

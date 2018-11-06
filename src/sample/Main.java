@@ -25,11 +25,8 @@ public class Main extends Application {
         scenes.put(SceneName.MAIN, new MainView(stage).getScene());
         scenes.put(SceneName.CATEGORIES, new CategoryView(stage).getScene());
         scenes.put(SceneName.LANGUAGE1, new LangaugeOne(stage).getScene());
-        scenes.put(SceneName.LANGUAGE2, new LanguageTwo(stage).getScene());
         scenes.put(SceneName.DS1, new DSOne(stage).getScene());
-        scenes.put(SceneName.DS2, new DSTwo(stage).getScene());
         scenes.put(SceneName.ALGO1, new AlgorithmOne(stage).getScene());
-        scenes.put(SceneName.ALGO2, new AlgorithmTwo(stage).getScene());
 
         // Start with the main scene
         stage.setScene(scenes.get(SceneName.MAIN));
