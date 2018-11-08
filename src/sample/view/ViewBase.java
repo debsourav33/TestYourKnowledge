@@ -13,22 +13,26 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import database.Show_question_with_options;
+
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.SQLException;
-import java.util.Random;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ViewBase implements ViewMaker {
     private Stage stage;
     private String labelText;
-    private String filename;
+    private String subject;
     private EventHandler<? super MouseEvent> handlerBack;
     private EventHandler<? super MouseEvent> handlerNext;
     private int score=0;
 
-    public ViewBase(Stage stage, String labelText, String filename,
+    Label time = new Label();
+
+    public ViewBase(Stage stage, String labelText, String subject,
                     EventHandler<? super MouseEvent> handlerBack, EventHandler<? super MouseEvent> handlerNext) {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
@@ -43,48 +47,85 @@ public class ViewBase implements ViewMaker {
 
         this.stage = stage;
         this.labelText = labelText;
-        this.filename = filename;
+        this.subject = subject;
         this.handlerBack = handlerBack;
         this.handlerNext = handlerNext;
+
     }
+
+
+
+
+
+
 
 
     @Override
     public Scene getScene() throws SQLException {
         GridPane root = new GridPane();
-        root.setPadding(new Insets(10));
+        root.setPadding(new Insets(10,10,10,10));
         Label label = new Label(labelText);
         label.setFont(new Font(32));
         root.setHgap(5);
         root.setVgap(5);
         root.setAlignment(Pos.BASELINE_LEFT);
 
-        root.add(label,2,0,48,1);
+        System.out.println("the........."+subject+"............");
+
+
+        /*Thread getScene = new Thread(){
+            public void run() {
+                try {
+                    Calendar calendar = new GregorianCalendar();
+                    int secend = calendar.get(Calendar.SECOND);
+                    int minutes = calendar.get(Calendar.MINUTE);
+                    int hours = calendar.get(Calendar.HOUR);
+                    int ampm = calendar.get(Calendar.AM_PM);
+                    time.setText(hours+":"+minutes+":"+secend);
+                    time.setAlignment(Pos.TOP_RIGHT);
+                    sleep(100);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };*/
+
+
+        root.add(label,2,0,48,1);//////////////////////////////// ////
+
+
 
         ScrollPane scrollPane = new ScrollPane();
         //scrollPane.setContent(root);
 
-        String[] fileData = new String[60];
+        /*String[] fileData = new String[60];
         int lines=1;
         FileReader fr= null;
 
         try {
-            fr = new FileReader(""+filename);
+            fr = new FileReader(""+subject);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
         //Fetching information from database
 
-        Show_question_with_options show = new Show_question_with_options(filename);
+        Show_question_with_options show = new Show_question_with_options(subject);
 
-        BufferedReader br = new BufferedReader(fr);
+       /* BufferedReader br = new BufferedReader(fr);
         Scanner sc = new Scanner(br);
         while(sc.hasNext()){
             fileData[lines]=sc.nextLine()+".";
             lines++;
-        }
+        }*/
 
-        Text[] Question = new Text[50];
+
+
+
+       root.add(time,10,0);
+        Text[] Question;
+        Question = new Text[50];
         CheckBox[] answer = new CheckBox[50];
         CheckBox[] Options1 = new CheckBox[50];
         CheckBox[] Options2 = new CheckBox[50];
@@ -177,10 +218,10 @@ public class ViewBase implements ViewMaker {
 
         ButtonBar bbar = new ButtonBar();
         bbar.getButtons().addAll(backButton, nextButton, closeButton);
-        root.add(bbar,64,64);
+        root.add(bbar,54,64);
 
         scrollPane.setContent(root);
 
-        return new Scene(scrollPane,1200,900);
+        return new Scene(scrollPane,1000,600);
     }
 }

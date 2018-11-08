@@ -1,5 +1,6 @@
 package sample.view;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -25,24 +26,40 @@ public class MainView implements ViewMaker {
         // Inject stage from Main into controller
         MainController controller = new MainController(stage);
 
-        Button button1 = new Button("Categories");
-        button1.setOnMousePressed(e -> controller.handleOnPressButton1(e));
+        Button start_test = new Button("Test");
+        Button login = new Button("Log In");
+        Button signup = new Button("Sign Up");
+        start_test.setOnMousePressed(e -> controller.handleOnPressButton1(e));
 
         BorderPane root = new BorderPane();
         //root.setLeft(vbox);
-        Label label = new Label("  Test your knowledge\n "+"  in various computer\n"+"  science & engineering fields\n");
+        Label label = new Label("Test your knowledge in various Computer\n        Science & Engineering fields\n");
         label.setFont(new Font(32));
+
+        label.setPrefHeight(120.0);
+        label.prefWidthProperty().bind(root.widthProperty());
+        label.setStyle("-fx-border-style: dotted; -fx-border-width: 1 0 0 0;-fx-font-weight: bold");
+        label.setAlignment(Pos.BASELINE_CENTER);
         root.setTop(label);
 
-        root.setCenter(button1);
+        start_test.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox();
+        vbox.setSpacing(30);
+        vbox.setPadding(new Insets(20,20,20,20));
+        vbox.getChildren().addAll(start_test, login, signup);
+        vbox.setAlignment(Pos.CENTER);
+
+
+        root.setCenter(vbox);
 
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
 
         ButtonBar bbar = new ButtonBar();
-        bbar.setPadding(new Insets(10));
+        bbar.setPadding(new Insets(10,10,10,10));
         bbar.getButtons().add(closeButton);
         root.setBottom(bbar);
+
         Scene scene = new Scene(root, 800, 600);
 
         return scene;

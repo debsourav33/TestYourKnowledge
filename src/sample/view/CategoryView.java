@@ -1,6 +1,7 @@
 package sample.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -29,13 +30,15 @@ public class CategoryView implements ViewMaker{
         Button button3 = new Button("Algorithm");
         button3.setOnMousePressed(e -> categoryController.handleOnPressButton3(e));
 
+
         VBox vbox = new VBox();
         vbox.setSpacing(30);
         vbox.setPadding(new Insets(100));
         vbox.getChildren().addAll(button1, button2, button3);
+        vbox.setAlignment(Pos.CENTER);
 
         BorderPane root = new BorderPane();
-        root.setLeft(vbox);
+        root.setCenter(vbox);
 
         Button BackButton = new Button("Back");
         BackButton.setOnMousePressed(e -> categoryController.handleOnFirstBack(e));
