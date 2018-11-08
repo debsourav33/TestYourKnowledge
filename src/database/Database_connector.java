@@ -1,13 +1,15 @@
 package database;
-import java.sql.*;
-import java.util.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Database_connector {
     public static final String USERNAME ="root";
-    public   static final String PASSWORD ="Mediocre52*7";
-    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge" +
-            "?autoReconnect=true&useSSL=false";
+    public   static final String PASSWORD ="root";
+    public static final String CONNECTION_STRING ="jdbc:mysql://localhost:3306/testyourknowledge";
     Connection conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
-    public  Database_connector() throws SQLException {
+    public Database_connector() throws SQLException {
         /*Scanner scan = new Scanner(System.in);
         //String test = scan.nextLine();
         //String concate = "my "+test+"";

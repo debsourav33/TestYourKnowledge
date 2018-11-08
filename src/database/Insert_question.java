@@ -1,64 +1,58 @@
 package database;
-import javax.security.auth.Subject;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Insert_question extends Database_connector {
 
-    private String subject = null;
+    private  static String subject = null;
     private String question = null;
     private String answer = null;
     private String option1 = null;
     private String option2 = null;
     private String option3 = null;
-    public Insert_question(String subject, String filename) throws SQLException {
+    public Insert_question(String subject, String question, String answer, String option1, String option2, String option3) throws SQLException {
 
+        Scanner scan = new Scanner(System.in);
         this.subject = subject;
+        //Connection conn = DriverManager.getConnection(CONNECTION_STRING,USERNAME,PASSWORD);
+        //System.out.println("connection established");
+        String text = "";
 
-        String delete = "DELETE FROM "+ subject;
-        PreparedStatement delete_QmS = conn.prepareStatement(delete);
-        delete_QmS.execute();
+             text = "Qus:";
+            //System.out.println(text);
+            this.question = question;
 
-        String[] fileData = new String[60];
-        int lines=1, lineNo=1;
-        FileReader fr= null;
-        try {
-            fr = new FileReader(""+filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedReader br = new BufferedReader(fr);
-        Scanner sc = new Scanner(br);
 
-        while(sc.hasNext()){
 
-            fileData[lineNo]=sc.nextLine();
 
-            if(lineNo%5==1)  this.question = fileData[lineNo];
-            else if(lineNo%5==2)  this.answer = fileData[lineNo];
-            else if(lineNo%5==3)  this.option1 = fileData[lineNo];
-            else if(lineNo%5==4)  this.option2 = fileData[lineNo];
-            else if(lineNo%5==0) {
 
-                this.option3 = fileData[lineNo];
+            text = "Ans:";
 
-                String insert = "INSERT INTO " + subject + "(Question, Answer, Option1, Option2, Option3 ) VALUES ('" + question + "','" + answer + "','" + option1 + "','" + option2 + "','" + option3 + "')";
-                PreparedStatement insert_QnS = conn.prepareStatement(insert);
-                insert_QnS.executeUpdate();
+            //System.out.println(text);
+            this.answer = answer;
 
-            }
-            lineNo++;
-        }
 
-        /*
+            text = "Opt1:";
+            //System.out.println(text);
+            this.option1 = option1;
+
+
+
+
+            text = "Opt2:";
+           // System.out.println(text);
+            this.option2 = option2;
+
+
+
+            text = "Opt3:";
+            //System.out.println(text);
+            this.option3 = option3;
+
         String insert ="INSERT INTO "+subject+"(Question, Answer, Option1, Option2, Option3 ) VALUES ('"+question+"','"+answer+"','"+option1+"','"+option2+"','"+option3+"')";
         PreparedStatement insert_QnS =  conn.prepareStatement(insert);
-        insert_QnS.executeUpdate();*/
+        insert_QnS.executeUpdate();
+
     }
 }
